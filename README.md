@@ -15,6 +15,7 @@ Phishing Detector is a web application developed with Streamlit that uses predef
 ## Installation
 
 1. Clone this repository:
+
     ```bash
     git clone <https://github.com/your_username/phishing-detector.git>
     ```
@@ -31,7 +32,7 @@ Phishing Detector is a web application developed with Streamlit that uses predef
 1. Run the application:
 
     ```bash
-    streamlit run phishing_detector.py
+    streamlit run app.py
     ```
 
 2. In the user interface, upload a text file or enter text manually in the text area.
