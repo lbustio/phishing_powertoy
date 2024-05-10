@@ -56,7 +56,7 @@ def load_rules(path):
     return rules
 
 # Construct file paths using os.path.join
-rules_path = os.path.join(rootPath, 'files')
+rules_path = os.path.join(rootPath, 'models')
 rules_txt_path = os.path.join(rules_path, 'rules.txt')
 rules_en_txt_path = os.path.join(rules_path, 'rules_en.txt')
 

@@ -48,7 +48,7 @@ persuasive_words_dict = { "ahora": "Urgencia", "ya": "Urgencia", "date prisa": "
 ## cargando frases relevantes
 count_equal = 0
 duplicated = {}
-with open(rootPath + 'files//all_kpe.txt', encoding = 'unicode_escape') as f:
+with open(rootPath + 'models//all_kpe.txt', encoding = 'unicode_escape') as f:
   for line in f:
     kpeElements = line.split(',')
 
