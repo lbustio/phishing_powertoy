@@ -10,7 +10,7 @@ RUN apk update \
 RUN python -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip install --upgrade pip \
-	&& pip install -r requirements.txt
+	&& CMAKE_MAKE_PROGRAM=/usr/bin/make CMAKE_C_COMPILER=/usr/bin/gcc CMAKE_CXX_COMPILER=/usr/bin/g++ pip install -r requirements.txt
 
 COPY  ./config.py ./utils.py  ./Pipfile ./Procfile ./condition_parser.py ./app.py ./vectorial_representation.py /app/
 COPY ./images/screenshot.png ./images/Image-Banner_1.png /app/images/
