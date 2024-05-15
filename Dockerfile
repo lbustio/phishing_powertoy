@@ -1,20 +1,21 @@
-FROM python:3.9.18-alpine
+FROM python:3.9.18-slim-bullseye
 
 WORKDIR /app/
 COPY ./requirements.txt /app/
-RUN apk update \
-	&& apk add --no-cache \
+RUN apt update \
+	&& apt install -y \
 		cmake \
 		g++ \
 		gcc
 RUN python -m venv .venv \
 	&& . .venv/bin/activate \
-	&& pip install --upgrade pip \
-	&& CMAKE_MAKE_PROGRAM=/usr/bin/make CMAKE_C_COMPILER=/usr/bin/gcc CMAKE_CXX_COMPILER=/usr/bin/g++ pip install -r requirements.txt
+	&& pip install --upgrade pip
 
-COPY  ./config.py ./utils.py  ./Pipfile ./Procfile ./condition_parser.py ./app.py ./vectorial_representation.py /app/
+RUN env CMAKE_MAKE_PROGRAM=/usr/bin/make CMAKE_C_COMPILER=/usr/bin/gcc CMAKE_CXX_COMPILER=/usr/bin/g++ pip install -r requirements.txt
+
+COPY  ./config.py ./utils.py ./condition_parser.py ./app.py ./vectorial_representation.py /app/
 COPY ./images/screenshot.png ./images/Image-Banner_1.png /app/images/
-COPY ./files/all_kpe.txt ./files/rules_en.txt ./files/rules.txt /app/files/
+COPY ./models/all_kpe.txt ./models/rules_en.txt ./models/rules.txt /app/models/
 
 #CMD ["streamlit", "run", "phishing_detector.py"]
 CMD ["sh", "-c", "while true; do sleep 1000; done"]
