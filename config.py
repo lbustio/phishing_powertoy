@@ -1,5 +1,4 @@
 rootPath = "./"
 port = 8501
-runOnSave = True
-headless = True
 baseUrlPath = ""
+address = "0.0.0.0"
