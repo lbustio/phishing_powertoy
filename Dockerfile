@@ -17,5 +17,4 @@ COPY  ./config.py ./utils.py ./condition_parser.py ./app.py ./vectorial_represen
 COPY ./images/screenshot.png ./images/Image-Banner_1.png /app/images/
 COPY ./models/all_kpe.txt ./models/rules_en.txt ./models/rules.txt /app/models/
 
-#CMD ["streamlit", "run", "phishing_detector.py"]
-CMD ["sh", "-c", "while true; do sleep 1000; done"]
+CMD ["streamlit", "run", "app.py"]
