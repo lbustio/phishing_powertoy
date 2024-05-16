@@ -1,20 +1,18 @@
 FROM python:3.9.18-slim-bullseye as builder
 
 WORKDIR /app/
+COPY ./requirements.txt /app/
 RUN apt update \
 	&& apt install -y \
 		cmake \
 		g++ \
-		gcc
-RUN python -m venv .venv \
+		gcc \
+&& python -m venv .venv \
 	&& . .venv/bin/activate \
-	&& pip install --upgrade pip
-
-COPY ./requirements.txt /app/
-RUN env PATH=/app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  VIRTUL_ENV=/app/.venv LANG=C.UTF-8 CMAKE_MAKE_PROGRAM=/usr/bin/make CMAKE_C_COMPILER=/usr/bin/gcc CMAKE_CXX_COMPILER=/usr/bin/g++ pip install -r requirements.txt
-RUN env PATH=/app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  VIRTUL_ENV=/app/.venv LANG=C.UTF-8 python -c "import nltk; nltk.download('punkt')"
-
-RUN apt purge -y cmake g++ gcc
+	&& pip install --upgrade pip \
+&& env PATH=/app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  VIRTUL_ENV=/app/.venv LANG=C.UTF-8 CMAKE_MAKE_PROGRAM=/usr/bin/make CMAKE_C_COMPILER=/usr/bin/gcc CMAKE_CXX_COMPILER=/usr/bin/g++ pip install -r requirements.txt \
+&& env PATH=/app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  VIRTUL_ENV=/app/.venv LANG=C.UTF-8 python -c "import nltk; nltk.download('punkt')" \
+&& apt purge -y cmake g++ gcc
 
 # FROM scratch
 # COPY --from=builder /app/.venv /app/
@@ -29,4 +27,4 @@ COPY  ./config.py ./utils.py ./condition_parser.py ./app.py ./vectorial_represen
 COPY ./models/all_kpe.txt ./models/rules_en.txt ./models/rules.txt /app/models/
 
 ENV PATH=/app/.venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  VIRTUL_ENV=/app/.venv LANG=C.UTF-8
-CMD ["/app/.venv/bin/streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "app.py"]
